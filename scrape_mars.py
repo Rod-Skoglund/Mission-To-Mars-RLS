@@ -24,7 +24,7 @@ from splinter import Browser
 #################################################################################
 
 #--------------------------------------------------------------------------------
-# URL of page to be scraped
+# URL of page to be scraped for the Mars News info
 #--------------------------------------------------------------------------------
 url = 'https://mars.nasa.gov/news/'
 
@@ -74,7 +74,7 @@ html = browser.html
 soup = BeautifulSoup(html, 'html.parser')
 
 #--------------------------------------------------------------------------------
-# find and store the url to the featured image
+# Find and store the url to the featured image
 #--------------------------------------------------------------------------------
 primary_feature = soup.find('section', class_="primary_media_feature")
 item = primary_feature.find('div', class_='carousel_items')
@@ -96,7 +96,7 @@ featured_image_url = ('https://www.jpl.nasa.gov' + article_arr[1])
 #################################################################################
 
 #--------------------------------------------------------------------------------
-# URL of page to be scraped
+# URL of page to be scraped for the Mars Weather data
 #--------------------------------------------------------------------------------
 url = 'https://twitter.com/marswxreport?lang=en'
 
@@ -164,7 +164,7 @@ html_mars_info_table = html_mars_info_table.replace('\n', '')
 #################################################################################
 
 #--------------------------------------------------------------------------------
-# URL of page to be scraped
+# URL of page to be scraped to capture the hemisphere title/image
 #--------------------------------------------------------------------------------
 url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
 
@@ -179,7 +179,7 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
 #--------------------------------------------------------------------------------
-# results are returned as an iterable list
+# The results are returned as an iterable list
 #--------------------------------------------------------------------------------
 results = soup.find_all('div', class_="item")
 
@@ -209,6 +209,10 @@ for result in results:
         #     print('-------------')
         #     print(title[sum])
         #     print(links[sum])
+
+        # **********************************************************************
+        # Increment index counter
+        # **********************************************************************
         sum += 1
     except AttributeError as e:
         print(e)
@@ -234,7 +238,7 @@ for link in links:
         hemi_soup = BeautifulSoup(hemisphere.text, 'html.parser')
         
         #------------------------------------------------------------------------
-        # results are returned as an iterable list
+        # The results are returned as an iterable list
         #------------------------------------------------------------------------
         hemi_results = hemi_soup.find_all('div', class_="downloads")
         
@@ -253,7 +257,10 @@ for link in links:
         #     print('-------------')
         #     print(hemi_image)
         #     print(hemisphere_images[this_item])
-            
+
+        # **********************************************************************
+        # Increment index counter
+        # **********************************************************************
         this_item += 1
     except AttributeError as e:
         print(e)
